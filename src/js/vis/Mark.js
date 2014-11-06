@@ -38,23 +38,24 @@ vde.Vis.Mark = (function() {
   prototype.init = function() {
     var self = this;
 
+    if(this.group() != this) {
+      this.group().marks[this.name] = this;
+      this.group().markOrder.unshift(this.name);
+    }
+
     if(!this.layerName) {
       var g = new vde.Vis.marks.Group();
       this.layerName = g.name;
     }
 
-    if(!this.name)
+    if(!this.name) {
       this.name = this.type + '_' + Date.now();
+    }
 
-    if(!this.displayName) {
+    if(!this.displayName && this.group() != undefined) {
       var count = this.group()._markCount++;
       if(!this.group().isLayer()) count = this.group().group()._markCount++;
       this.displayName = capitaliseFirstLetter(this.type) + ' ' + vde.Vis.codename(count);
-    }
-
-    if(this.group() != this) {
-      this.group().marks[this.name] = this;
-      this.group().markOrder.unshift(this.name);
     }
 
     vg.keys(this.connectors).forEach(function(c) {
@@ -393,7 +394,7 @@ vde.Vis.Mark = (function() {
       var newStart = [];
       for(var i = 0; i < start.length; i++) {
         var marks = start[i].marks;
-        if(!marks) continue; 
+        if(!marks) continue;
 
         for(var j = 0; j < marks.length; j++) {
           var m = marks[j];

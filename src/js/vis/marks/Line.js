@@ -152,7 +152,7 @@ vde.Vis.marks.Line = (function() {
   };
 
   prototype.dummyData = function(opts) {
-    if(this.properties.x.field || this.properties.y.field) return;
+    if(this.properties.x.field || this.properties.y.field || this.group() == undefined) return;
     var g = this.group().properties;
 
     opts.spec.data.push({

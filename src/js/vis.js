@@ -467,7 +467,7 @@ vde.iVis = (function() {
                 icanvas.style('cursor', item.datum.data.cursor);
             };
 
-            var items = function() { 
+            var items = function() {
               var items = [];
 
               if(item.connector) {  // Point or Connector
@@ -477,7 +477,7 @@ vde.iVis = (function() {
                 if(item.mark.group.items[3].items.length > 0) { // Points
                   // We need to offset by the number of spans
                   item.mark.group.items[3].items.forEach(function(i) {
-                    if(i.connector == item.connector || 
+                    if(i.connector == item.connector ||
                        i.connector == item.property) items.push(i);
                   });
                 }
@@ -485,7 +485,7 @@ vde.iVis = (function() {
                 // Iterate over span groups
                 item.mark.group.items[4].items.forEach(function(spanGroup) {
                   spanGroup.items[0].items.forEach(function(lineSegment) {
-                    if(lineSegment.span.indexOf(item.property + '_') != -1) 
+                    if(lineSegment.span.indexOf(item.property + '_') != -1)
                       items.push(lineSegment);
                   });
                 });
@@ -600,15 +600,15 @@ vde.iVis = (function() {
     }
 
     mark.pipelineName = (rootScope.activePipeline||{}).name;
-
+    mark.init();
     rootScope.$apply(function() {
-      mark.init();
       vde.Vis.render().then(function() {
         rootScope.toggleVisual(mark, null, true);
         ivis.ngTimeline().save();
 
         $('.proxy').remove();
       });
+
     });
 
     window.clearTimeout(vde.iVis.timeout);
@@ -951,23 +951,24 @@ vde.Vis.Mark = (function() {
   prototype.init = function() {
     var self = this;
 
+    if(this.group() != this) {
+      this.group().marks[this.name] = this;
+      this.group().markOrder.unshift(this.name);
+    }
+
     if(!this.layerName) {
       var g = new vde.Vis.marks.Group();
       this.layerName = g.name;
     }
 
-    if(!this.name)
+    if(!this.name) {
       this.name = this.type + '_' + Date.now();
+    }
 
-    if(!this.displayName) {
+    if(!this.displayName && this.group() != undefined) {
       var count = this.group()._markCount++;
       if(!this.group().isLayer()) count = this.group().group()._markCount++;
       this.displayName = capitaliseFirstLetter(this.type) + ' ' + vde.Vis.codename(count);
-    }
-
-    if(this.group() != this) {
-      this.group().marks[this.name] = this;
-      this.group().markOrder.unshift(this.name);
     }
 
     vg.keys(this.connectors).forEach(function(c) {
@@ -1306,7 +1307,7 @@ vde.Vis.Mark = (function() {
       var newStart = [];
       for(var i = 0; i < start.length; i++) {
         var marks = start[i].marks;
-        if(!marks) continue; 
+        if(!marks) continue;
 
         for(var j = 0; j < marks.length; j++) {
           var m = marks[j];
@@ -1456,6 +1457,7 @@ vde.Vis.Mark = (function() {
 })();
 
 vde.Vis.marks = {};
+
 vde.Vis.Transform = (function() {
   var transform = function(pipelineName, type, displayName, input, output) {
     this.type = type;
@@ -1904,7 +1906,7 @@ vde.Vis.marks.Line = (function() {
   };
 
   prototype.dummyData = function(opts) {
-    if(this.properties.x.field || this.properties.y.field) return;
+    if(this.properties.x.field || this.properties.y.field || this.group() == undefined) return;
     var g = this.group().properties;
 
     opts.spec.data.push({

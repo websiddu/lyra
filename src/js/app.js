@@ -245,7 +245,7 @@ vde.App.controller('LayersCtrl', function($scope, $rootScope, $timeout, timeline
       if($rootScope.activeGroup == group) $rootScope.activeGroup = null;
       if($rootScope.activeLayer == group) $rootScope.activeLayer = null;
       if($rootScope.activeVisual == group) $rootScope.activeVisual = null;
-      if(iVis.activeMark == group || iVis.activeMark.group() == group) 
+      if(iVis.activeMark == group || iVis.activeMark.group() == group)
         iVis.activeMark = null;
 
       group.destroy();

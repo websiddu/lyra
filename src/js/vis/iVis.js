@@ -138,7 +138,7 @@ vde.iVis = (function() {
                 icanvas.style('cursor', item.datum.data.cursor);
             };
 
-            var items = function() { 
+            var items = function() {
               var items = [];
 
               if(item.connector) {  // Point or Connector
@@ -148,7 +148,7 @@ vde.iVis = (function() {
                 if(item.mark.group.items[3].items.length > 0) { // Points
                   // We need to offset by the number of spans
                   item.mark.group.items[3].items.forEach(function(i) {
-                    if(i.connector == item.connector || 
+                    if(i.connector == item.connector ||
                        i.connector == item.property) items.push(i);
                   });
                 }
@@ -156,7 +156,7 @@ vde.iVis = (function() {
                 // Iterate over span groups
                 item.mark.group.items[4].items.forEach(function(spanGroup) {
                   spanGroup.items[0].items.forEach(function(lineSegment) {
-                    if(lineSegment.span.indexOf(item.property + '_') != -1) 
+                    if(lineSegment.span.indexOf(item.property + '_') != -1)
                       items.push(lineSegment);
                   });
                 });
@@ -271,15 +271,15 @@ vde.iVis = (function() {
     }
 
     mark.pipelineName = (rootScope.activePipeline||{}).name;
-
+    mark.init();
     rootScope.$apply(function() {
-      mark.init();
       vde.Vis.render().then(function() {
         rootScope.toggleVisual(mark, null, true);
         ivis.ngTimeline().save();
 
         $('.proxy').remove();
       });
+
     });
 
     window.clearTimeout(vde.iVis.timeout);
