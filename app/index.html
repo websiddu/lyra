@@ -1,0 +1,157 @@
+<!doctype html>
+<html class="no-js" ng-app="vde">
+  <head>
+    <meta charset="utf-8">
+    <title>Lyra</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+
+  <body ng-controller="VdeCtrl" ng-init="load()"  ng-click="clearBubbles();">
+
+    <ng-include src="'tmpl/pipelines.html'"></ng-include>
+
+    <ng-include src="'tmpl/layers.html'"></ng-include>
+
+    <ng-include src="'tmpl/center.html'"></ng-include>
+
+    <ng-include src="'tmpl/popovers/scale.html'"></ng-include>
+
+    <ng-include src="'tmpl/popovers/aggregate.html'"></ng-include>
+
+    <ng-include src="'tmpl/popovers/data.html'"></ng-include>
+
+    <ng-include src="'tmpl/popovers/timeline.html'" ng-controller="TimelineCtrl"></ng-include>
+
+    <ng-include src="'tmpl/popovers/export.html'" ng-controller="ExportCtrl"></ng-include>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/vega/vega.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+    <script src="bower_components/jqueryui/jquery-ui.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-XXXXX-X');ga('send','pageview');
+    </script>
+
+        <!-- build:js({app,.tmp}) scripts/main.js -->
+
+      <script src="scripts/lib/sortable.js"></script>
+      <script src="scripts/lib/indexeddb.js"></script>
+      <script src="scripts/lib/inflector.js"></script>
+      <script src="scripts/lib/scrollingcarousel.2.0.min.js"></script>
+      <script src="scripts/lib/sortable.js"></script>
+
+      <script src="scripts/lib/jquery.event.drag-2.2.js"></script>
+      <script src="scripts/lib/jquery.event.drop-2.2.js"></script>
+
+
+        <script src="scripts/vde.js"></script>
+
+        <script src='scripts/vis/Vis.js'></script>
+        <script src='scripts/vis/iVis.js'></script>
+        <script src='scripts/vis/Mark.js'></script>
+        <script src='scripts/vis/Transform.js'></script>
+
+        <script src='scripts/vis/Axis.js'></script>
+        <script src='scripts/vis/Callback.js'></script>
+        <script src='scripts/vis/Field.js'></script>
+        <script src='scripts/vis/parse.js'></script>
+        <script src='scripts/vis/Pipeline.js'></script>
+        <script src='scripts/vis/Scale.js'></script>
+
+        <script src='scripts/vis/marks/Symbol.js'></script>
+        <script src='scripts/vis/marks/Line.js'></script>
+        <script src='scripts/vis/marks/Arc.js'></script>
+        <script src='scripts/vis/marks/Area.js'></script>
+        <script src='scripts/vis/marks/Group.js'></script>
+        <script src='scripts/vis/marks/Rect.js'></script>
+        <script src='scripts/vis/marks/Text.js'></script>
+
+        <script src="scripts/vis/transforms/Facet.js"></script>
+        <script src="scripts/vis/transforms/Filter.js"></script>
+        <script src="scripts/vis/transforms/Force.js"></script>
+        <script src="scripts/vis/transforms/Formula.js"></script>
+        <script src="scripts/vis/transforms/Geo.js"></script>
+        <script src="scripts/vis/transforms/Pie.js"></script>
+        <script src="scripts/vis/transforms/Sort.js"></script>
+        <script src="scripts/vis/transforms/Stack.js"></script>
+        <script src="scripts/vis/transforms/Stats.js"></script>
+        <script src="scripts/vis/transforms/Window.js"></script>
+
+        <script src="scripts/ctrls/vde.js"></script>
+        <script src="scripts/ctrls/timeline.js"></script>
+        <script src="scripts/ctrls/scale.js"></script>
+        <script src="scripts/ctrls/pipelines.js"></script>
+        <script src="scripts/ctrls/mark.js"></script>
+        <script src="scripts/ctrls/layers.js"></script>
+        <script src="scripts/ctrls/group.js"></script>
+        <script src="scripts/ctrls/export.js"></script>
+        <script src="scripts/ctrls/editVis.js"></script>
+        <script src="scripts/ctrls/data.js"></script>
+
+        <script src="scripts/directives/binding.js"></script>
+        <script src="scripts/directives/canDropField.js"></script>
+        <script src="scripts/directives/dataGrid.js"></script>
+        <script src="scripts/directives/draggable.js"></script>
+        <script src="scripts/directives/editName.js"></script>
+        <script src="scripts/directives/expr.js"></script>
+        <script src="scripts/directives/field.js"></script>
+        <script src="scripts/directives/inferredPopover.js"></script>
+        <script src="scripts/directives/posNewData.js"></script>
+        <script src="scripts/directives/property.js"></script>
+        <script src="scripts/directives/scaleValues.js"></script>
+        <script src="scripts/directives/tooltip.js"></script>
+
+        <script src="scripts/services/draggable.js"></script>
+        <script src="scripts/services/globals.js"></script>
+        <script src="scripts/services/timeline.js"></script>
+
+
+        <!-- endbuild -->
+</body>
+</html>
