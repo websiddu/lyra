@@ -22,7 +22,6 @@
           <input type="text" ng-model="$parent.ngModel" ng-change="onchange()" ng-class="{'scaled-input': scale != undefined, 'disabled-input': item.properties[property].disabled}" />
       </span>
 
-
       <span ng-switch-when="number">
         <input ng-if="scale" type="text" class="number" ng-model="$parent.$parent.ngModel" ng-change="onchange()" min="{{min}}" max="{{max}}" ng-class="{'scaled-input': scale != undefined, 'disabled-input': item.properties[property].disabled}" />
 
