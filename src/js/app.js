@@ -1331,20 +1331,18 @@ vde.App.directive('vdeScaleValues', function(Vis, vg) {
     restrict: 'E',
     scope: {
       type: '@',
-      scale: '=',
-      property: '@',
-      options: '=',
-      ngModel: '='
+      scale: '&',
+      property: '@'
     },
     templateUrl: 'tmpl/inspectors/scale-values.html',
     controller: function($scope) {
       $scope.$watch('scale', function() {
-        $scope.values = (($scope.scale || {})[$scope.property] || [])
+        $scope.values = (($scope.scale() || {})[$scope.property] || [])
           .map(function(v) { return {value: v}; });
       });
 
       $scope.update = function() {
-        $scope.scale[$scope.property] = vg.keys($scope.values).map(function(k) { return $scope.values[k].value; });
+        $scope.scale()[$scope.property] = vg.keys($scope.values).map(function(k) { return $scope.values[k].value; });
         Vis.render();
       };
 
@@ -1367,6 +1365,7 @@ vde.App.directive('vdeScaleValues', function(Vis, vg) {
     }
   };
 });
+
 vde.App.directive('vdeTooltip', function() {
   return function(scope, element, attrs) {
     element.tooltip({
